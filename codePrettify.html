@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8"/>
+	<title>code Prettify</title>
+	<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<body>
+<h1>google-code-prettify</h1>
+<ul>
+	<li><a href="https://code.google.com/p/google-code-prettify/">google</a></li>
+	<li><a href="https://github.com/google/code-prettify/">github</a></li>
+	<li><a href="https://code.google.com/p/google-code-prettify/wiki/GettingStarted">Getting Started</a></li>
+	<li><a href="http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html">code Theme</a></li>
+	<li><a href="http://google-code-prettify.googlecode.com/svn/trunk/examples/quine.html">sample</a></li>
+</ul>
+
+<pre class="prettyprint">
+	기본 : pre.prettyprint
+	라인 표시할 때 : pre.prettyprint.linenums
+	페이지 전체 코드 표시할 때 : pre.prettyprint.linenums.html
+</pre>
+<pre class="prettyprint linenums html">
+</pre>
+<script>
+	(function ($) {
+		var prettify = (function () {
+			function html(s) {
+				return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			}
+
+			var el = document.getElementsByTagName('pre');
+			$.each(el, function (i) {
+				if (el[i].className !== 'prettyprint linenums html') {
+					var quineHtml = html(el[i].innerHTML);
+				} else {
+					var quineHtml = html('<!DOCTYPE html>\n<html>\n' + document.documentElement.innerHTML + '\n<\/html>\n');
+				}
+				return el[i].innerHTML = quineHtml;
+			});
+		}());
+	})(jQuery);
+</script>
+</body>
+</html>
+
