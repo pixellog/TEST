@@ -3,8 +3,10 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>code Prettify</title>
-	<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<!--<script src="./bower_components/google-code-prettify/src/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>-->
+	<!--<link rel="stylesheet" href="./bower_components/google-code-prettify/src/sons-of-obsidian.css"/>-->
+	<script src="./bower_components/google-code-prettify/src/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css"></script>
+	<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -22,9 +24,27 @@
 	라인 표시할 때 : pre.prettyprint.linenums
 	페이지 전체 코드 표시할 때 : pre.prettyprint.linenums.html
 </pre>
-<pre class="prettyprint linenums html">
+<pre class="prettyprint linenums">
+	(function ($) {
+		var prettify = (function () {
+			function html(s) {
+				return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			}
+
+			var el = document.getElementsByTagName('pre');
+			$.each(el, function (i) {
+				if (el[i].className !== 'prettyprint linenums html') {
+					var quineHtml = html(el[i].innerHTML);
+				} else {
+					var quineHtml = html('<!DOCTYPE html>\n<html>\n' + document.documentElement.innerHTML + '\n<\/html>\n');
+				}
+				return el[i].innerHTML = quineHtml;
+			});
+		}());
+	})(jQuery);
 </pre>
-<script>
+
+<script>ç
 	(function ($) {
 		var prettify = (function () {
 			function html(s) {
